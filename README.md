@@ -31,3 +31,17 @@ Demo project for Spring Boot with Keycloak 11 and Kotlin
 - Start with maven clean install.
 
 ##### Authenticate to Get the Access Token
+- By Postman you can authenticate with a POST to: http://localhost:8080/auth/realms/company_master/protocol/openid-connect/token
+- In the Body select the x-www-form-urlencoded format, and send this keys and values:
+
+| KEY           | VALUE                                |
+| ------------- | ------------------------------------ |
+| username      | branch_office_1                      |
+| password      | 123456                               |
+| grant_type    | password                             |
+| client_id     | backend-api                          |
+| client_secret | 1b5c82ed-00b2-4f37-852a-cbf3990fb372 |
+
+- The value of client_secret, you must see the Secret id of the Realm Client generated in your Keycloak.
+- After authenticate, get the 'access_token' generated in the response of the above request.
+- Now you can do a GET in 'http://localhost:8090/v1/product' passing in the Header the KEY(Authorization), and the VALUE(Bearer access_token).

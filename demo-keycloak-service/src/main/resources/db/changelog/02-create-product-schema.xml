@@ -16,10 +16,10 @@
             <column name="id" type="int8" autoIncrement="true">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
-            <column name="company_id" type="uuid">
+            <column name="company_name" type="varchar(30)">
                 <constraints nullable="false" unique="false"/>
             </column>
-            <column name="branch_office_id" type="uuid">
+            <column name="branch_office_name" type="varchar(50)">
                 <constraints nullable="false" unique="false"/>
             </column>
             <column name="product_name" type="varchar(255)">
