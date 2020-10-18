@@ -21,7 +21,7 @@ interface ProductApi {
         ApiResponse(code = 400, message = "Bad request", response = MessageResponse::class),
         ApiResponse(code = 500, message = "Internal error to create the product", response = MessageResponse::class)])
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
+    @PostMapping("/product")
     fun createProduct(principal: Principal, @Valid @RequestBody productRequest: ProductRequest): MessageResponse
 
     @ResponseStatus(HttpStatus.OK)
