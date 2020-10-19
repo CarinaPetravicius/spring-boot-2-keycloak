@@ -2,10 +2,9 @@ package com.example.demo.api
 
 import com.example.demo.model.MessageResponse
 import com.example.demo.model.ProductRequest
-import io.swagger.annotations.Api
-import io.swagger.annotations.ApiOperation
-import io.swagger.annotations.ApiResponse
-import io.swagger.annotations.ApiResponses
+import com.example.demo.model.ProductResponse
+import io.swagger.annotations.*
+import org.springframework.data.domain.Page
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import java.security.Principal
@@ -30,7 +29,8 @@ interface ProductApi {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/products/all")
-    fun getAllProducts(principal: Principal): String
+    fun getAllProducts(principal: Principal, @ApiParam(value = "page number.") @RequestParam(value = "page") page: Int,
+                       @ApiParam(value = "quantity of items per page.") @RequestParam(value = "size") size: Int): Page<ProductResponse>
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/test")
