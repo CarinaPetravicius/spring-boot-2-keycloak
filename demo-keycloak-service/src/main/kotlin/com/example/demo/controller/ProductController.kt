@@ -1,12 +1,11 @@
 package com.example.demo.controller
 
 import com.example.demo.api.ProductApi
-import com.example.demo.model.MessageResponse
-import com.example.demo.model.ProductHttpResponse
-import com.example.demo.model.ProductRequest
-import com.example.demo.model.ProductResponse
+import com.example.demo.model.*
+import com.example.demo.translator.AuthUserRequestToAuthUserDomainTranslator
 import com.example.demo.translator.ProductDomainToProductResponseTranslator
 import com.example.demo.translator.ProductRequestToProductDomainTranslator
+import com.example.demo.usecase.AuthUserUseCase
 import com.example.demo.usecase.CreateProductUseCase
 import com.example.demo.usecase.GetProductsForCompanyUseCase
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken
@@ -15,11 +14,12 @@ import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Page
 import org.springframework.web.bind.annotation.RestController
 import java.security.Principal
-import java.util.*
+import java.util.UUID
 
 @RestController
 class ProductController(private val createProductUseCase: CreateProductUseCase,
-                        private val getProductsForCompanyUseCase: GetProductsForCompanyUseCase) : ProductApi {
+                        private val getProductsForCompanyUseCase: GetProductsForCompanyUseCase,
+                        private val authUserUseCase: AuthUserUseCase) : ProductApi {
 
     private val log: Logger = LoggerFactory.getLogger(ProductController::class.java)
 
@@ -68,6 +68,13 @@ class ProductController(private val createProductUseCase: CreateProductUseCase,
     override fun getMessageTest(): String {
         log.info("Product API starting to test public endpoint")
         return "Test success"
+    }
+
+    override fun generateToken(authUserRequest: AuthUserRequest): String {
+        log.info("Product API starting to generate the user access token")
+
+        val authUserDomain = AuthUserRequestToAuthUserDomainTranslator().translate(authUserRequest)
+        return authUserUseCase.execute(authUserDomain)
     }
 
 }

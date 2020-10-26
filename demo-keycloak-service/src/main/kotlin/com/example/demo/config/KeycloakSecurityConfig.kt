@@ -23,6 +23,7 @@ class KeycloakSecurityConfig : KeycloakWebSecurityConfigurerAdapter() {
         super.configure(http)
         http.authorizeRequests()
                 .antMatchers("/v1/test").permitAll()
+                .antMatchers("/v1/token").permitAll()
                 .antMatchers("/v1/product").hasAnyRole("branch_office")
                 .antMatchers("/v1/products/all").hasAnyRole("company")
                 .anyRequest()
