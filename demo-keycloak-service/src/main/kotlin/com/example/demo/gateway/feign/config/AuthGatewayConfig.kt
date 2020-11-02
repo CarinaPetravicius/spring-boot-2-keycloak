@@ -11,7 +11,7 @@ class AuthGatewayConfig : BaseFeignConfig() {
     @Bean("authApiInterceptor")
     fun authApiInterceptor(): RequestInterceptor? {
         return RequestInterceptor { requestTemplate: RequestTemplate ->
-            requestTemplate.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+            requestTemplate.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
         }
     }
 
