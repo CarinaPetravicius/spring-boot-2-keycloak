@@ -45,3 +45,16 @@ Demo project for Spring Boot with Keycloak 11 and Kotlin
 - The value of client_secret, you must see the Secret id of the Realm Client generated in your Keycloak.
 - After authenticate, get the 'access_token' generated in the response of the above request.
 - Now you can do a GET in 'http://localhost:8090/v1/product' passing in the Header the KEY(Authorization), and the VALUE(Bearer access_token).
+
+##### Endpoint to Authenticate
+- The endpoint http://localhost:8090/v1/token, is a sample to call the keycloak authentication endpoint.
+
+##### Custom User Attribute
+- In Keycloak Users, select for example the user 'branch_office_1' and Edit.
+- Go to Attributes.
+- Create for example the key 'company_name', and the value 'company_master_1', and Save.
+- Go to Clients.
+- Select for example the client 'backend-api'.
+- Go to Mappers.
+- Create the Mapper 'company_name'. Select the 'User Attribute' as 'Mapper Type'. Select 'String' as 'Claim JSON Type'. Fill 'company_name' in 'User Attribute' and 'Token Claim Name'.
+- Now you can receive a custom user attribute in your access token.

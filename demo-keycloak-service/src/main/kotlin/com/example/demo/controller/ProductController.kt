@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Page
 import org.springframework.web.bind.annotation.RestController
 import java.security.Principal
-import java.util.UUID
+import java.util.*
 
 @RestController
 class ProductController(private val createProductUseCase: CreateProductUseCase,
@@ -30,6 +30,11 @@ class ProductController(private val createProductUseCase: CreateProductUseCase,
         val token = keycloakAuthentication.account.keycloakSecurityContext.token
 
         log.info("Creating the product for user: {}", token.preferredUsername)
+
+        // Created a custom attribute in user and map in client application
+        val customClaims = token.otherClaims
+        val companyName = customClaims.get("company_name")
+        log.info("Company name: {}", companyName.toString())
 
         val productDomain = ProductRequestToProductDomainTranslator().translate(productRequest,
                 keycloakAuthentication.account.keycloakSecurityContext.realm, token.preferredUsername)
