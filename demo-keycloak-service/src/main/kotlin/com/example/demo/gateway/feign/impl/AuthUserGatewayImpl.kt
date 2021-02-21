@@ -4,14 +4,10 @@ import com.example.demo.domain.AuthUserDomain
 import com.example.demo.gateway.AuthUserGateway
 import com.example.demo.gateway.feign.api.AuthUserApi
 import feign.FeignException
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 
 @Component
 class AuthUserGatewayImpl(private val authUserApi: AuthUserApi) : AuthUserGateway {
-
-    private val log: Logger = LoggerFactory.getLogger(AuthUserGatewayImpl::class.java)
 
     override fun execute(authUserDomain: AuthUserDomain): String {
         try {

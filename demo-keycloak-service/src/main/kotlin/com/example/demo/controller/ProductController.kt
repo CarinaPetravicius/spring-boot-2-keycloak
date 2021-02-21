@@ -39,7 +39,7 @@ class ProductController(private val createProductUseCase: CreateProductUseCase,
         val productDomain = ProductRequestToProductDomainTranslator().translate(productRequest,
                 keycloakAuthentication.account.keycloakSecurityContext.realm, token.preferredUsername)
 
-        createProductUseCase.execute(productDomain)
+        createProductUseCase.execute(productDomain, keycloakAuthentication.account.keycloakSecurityContext.tokenString)
 
         return MessageResponse(ProductHttpResponse.PRODUCT_CREATED.httpStatus, ProductHttpResponse.PRODUCT_CREATED.httpMessage)
     }
